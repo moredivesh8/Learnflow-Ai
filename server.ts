@@ -595,22 +595,35 @@ DOCUMENT TEXT:
 ${chunkText}
 
 CRITICAL EXTRACTION & EVIDENCE RULES:
-1. Extract the actual educational topics, concepts, ciphers, algorithms, theories, and mechanics explicitly explained in the text.
-2. Every evidence quote must be an exact contiguous quotation copied from the provided source text. Do not paraphrase. Do not invent, reconstruct, summarize, or modify evidence.
-3. Preserve original terminology from the document (for example, if the document covers "Historical Ciphers", "Caesar Cipher", "Monoalphabetic Cipher", "Playfair Cipher", "Hill Cipher", "Vigenère Cipher", "Symmetric Encryption", extract those exact topic names).
-4. Do NOT inject generic outside topics (e.g. do not add GDPR or AI Ethics unless they are explicitly in this text).
-5. Do NOT create topics for OCR artifacts, corruptions, or document descriptions (e.g., do NOT output topics like "Unreadable Document Excerpt", "Corrupted Text Segment", "Stream Artifacts", "Document Overview", "Table of Contents"). Only output legitimate educational topics.
-6. For each topic:
-   - "name": Meaningful topic name representing a concept, technique, algorithm, or chapter from the text
-   - "unit": Unit or Module label (e.g. "Unit 1: Introduction to Cryptography")
-   - "difficulty": "easy", "medium", or "hard"
-   - "description": 1-2 sentence summary of what the document teaches about this topic
-   - "concepts": Array of key concepts, sub-principles, or algorithms in this section
-   - "definitions": Array of { term, definition } explicitly defined in the text
-   - "keyFacts": Array of factual statements or properties stated in the text
-   - "examples": Any specific examples, case studies, or named techniques mentioned
-   - "sourceEvidence": Array of { page?: number, text: "exact contiguous quote copied verbatim from the document text" }
-7. Extract a comprehensive set of distinct topics (typically 5 to 20 topics for full documents/chapters).`;
+1. Extract ONLY educational topics that are explicitly taught in the DOCUMENT TEXT.
+2. You MUST extract multiple distinct topics when the document contains multiple concepts, chapters, sections, algorithms, techniques, definitions, or mechanisms.
+3. Do NOT return only the document title as a topic unless the entire document genuinely teaches only that single concept.
+4. EVERY topic MUST contain at least ONE sourceEvidence item.
+5. EVERY sourceEvidence.text MUST be copied EXACTLY from DOCUMENT TEXT.
+6. sourceEvidence.text MUST be a contiguous verbatim quote from DOCUMENT TEXT.
+7. NEVER paraphrase, summarize, rewrite, reconstruct, or invent sourceEvidence.
+8. Before returning a topic, verify that each sourceEvidence.text appears literally in DOCUMENT TEXT.
+9. If you cannot find an exact quote supporting a candidate topic, DO NOT return that topic.
+10. Prefer evidence containing the actual heading, definition, explanation, formula, procedure, property, or example that teaches the topic.
+11. Preserve the original terminology used by the document.
+12. Do NOT inject outside knowledge or topics.
+13. Do NOT create topics for OCR artifacts, corrupted text, metadata, document descriptions, table of contents, references, bibliography, or page formatting.
+14. Extract approximately 5–20 distinct topics when the document contains enough educational material.
+15. Each topic should represent a meaningful teachable concept, technique, algorithm, theory, mechanism, chapter, or section.
+
+For every topic return:
+- name: exact or near-exact educational topic name from the source
+- unit: unit/module/chapter if identifiable
+- difficulty: easy, medium, or hard
+- description: concise explanation based ONLY on the source
+- concepts: important concepts explicitly present in the source
+- definitions: definitions explicitly present in the source
+- keyFacts: facts/properties explicitly stated in the source
+- examples: examples explicitly mentioned in the source
+- sourceEvidence: AT LEAST ONE object containing an EXACT VERBATIM CONTIGUOUS QUOTE copied from DOCUMENT TEXT
+
+IMPORTANT:
+Do not output a topic unless you can provide an exact sourceEvidence quote for it.
 
         try {
           const resp = await generateGeminiContent(ai, {
