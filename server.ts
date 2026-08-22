@@ -624,7 +624,7 @@ For every topic return:
 
 IMPORTANT:
 Do not output a topic unless you can provide an exact sourceEvidence quote for it.
-
+ `;
         try {
           const resp = await generateGeminiContent(ai, {
             contents: prompt,
