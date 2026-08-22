@@ -571,7 +571,7 @@ async function startServer() {
 },
                 initialMasteryEstimate: { type: Type.NUMBER },
               },
-              required: ['name', 'description'],
+              required: ['name', 'description', 'sourceEvidence'],
             },
           },
         },
