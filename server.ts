@@ -634,6 +634,9 @@ Do not output a topic unless you can provide an exact sourceEvidence quote for i
             },
           });
           const parsed = JSON.parse(resp.text || '{}');
+          console.log(
+  `[Source] Gemini response preview: ${JSON.stringify(parsed).slice(0, 3000)}`
+);
           if (parsed.documentTitle && !discoveredDocTitle) discoveredDocTitle = parsed.documentTitle;
           if (parsed.documentSummary && !discoveredDocSummary) discoveredDocSummary = parsed.documentSummary;
           if (Array.isArray(parsed.topics)) {
