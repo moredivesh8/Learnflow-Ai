@@ -558,16 +558,17 @@ async function startServer() {
                   items: { type: Type.STRING },
                 },
                 sourceEvidence: {
-                  type: Type.ARRAY,
-                  items: {
-                    type: Type.OBJECT,
-                    properties: {
-                      page: { type: Type.INTEGER },
-                      text: { type: Type.STRING },
-                    },
-                    required: ['text'],
-                  },
-                },
+  type: Type.ARRAY,
+  minItems: 1,
+  items: {
+    type: Type.OBJECT,
+    properties: {
+      page: { type: Type.INTEGER },
+      text: { type: Type.STRING },
+    },
+    required: ['text'],
+  },
+},
                 initialMasteryEstimate: { type: Type.NUMBER },
               },
               required: ['name', 'description'],
