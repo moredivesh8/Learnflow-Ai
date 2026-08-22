@@ -1,0 +1,6 @@
+{
+  "name": "LearnFlow AI",
+  "description": "Adaptive AI Learning Web Application that transforms study materials into personalized roadmaps, quizzes, real-time weak topic detection, and dynamic learning adaptation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
